@@ -6,7 +6,9 @@
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
-		"lint": "prettier --plugin-search-dir . --check . && eslint .",
+		"check": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json",
+		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./jsconfig.json --watch",
+		"lint": "prettier --plugin-search-dir . --check .",
 		"format": "prettier --plugin-search-dir . --write .",
 		"build:css": "node-sass --include-path=node_modules/bootstrap/scss --output-style compressed bootstrap/bootstrap.scss static/css/bootstrap.min.css",
 		"postinstall": "npm run build:css"
@@ -14,14 +16,19 @@
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
 		"@sveltejs/kit": "^1.5.0",
+		"@types/pg": "^8.6.6",
+		"bcrypt": "^5.1.0",
 		"bootstrap": "^5.2.3",
 		"eslint": "^8.28.0",
 		"eslint-config-prettier": "^8.5.0",
 		"eslint-plugin-svelte3": "^4.0.0",
 		"node-sass": "^8.0.0",
+		"pg": "^8.10.0",
 		"prettier": "^2.8.0",
 		"prettier-plugin-svelte": "^2.8.1",
 		"svelte": "^3.54.0",
+		"svelte-check": "^3.0.1",
+		"typescript": "^5.0.4",
 		"vite": "^4.2.0"
 	},
 	"type": "module"
