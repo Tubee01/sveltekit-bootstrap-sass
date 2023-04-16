@@ -1,18 +1,20 @@
-
-import pkg from 'pg';
-const { Pool } = pkg;
+import type { ClientConfig } from 'pg';
+import { Pool, } from 'pg';
 
 export class PoolManager {
-  constructor() {
-    this.clients = {};
-  }
+  private readonly clients: { [key: string]: Pool } = {};
 
-  getClient(name) {
+
+  getClient(name: string) {
     return this.clients[name];
   }
 
-  async createPool(config) {
-    if (this.clients[config.database]) {
+  async createPool(config: ClientConfig) {
+    if (!config?.database) {
+      throw new Error('Database name is required');
+    }
+
+    if (config?.database && this.clients[config.database]) {
       throw new Error('Pool already exists');
     }
 
@@ -23,7 +25,11 @@ export class PoolManager {
     return pool;
   }
 
-  async getCreateIfNotExistClient(config) {
+  async getCreateIfNotExistClient(config: ClientConfig) {
+    if (!config?.database) {
+      throw new Error('Database name is required');
+    }
+
     let client = this.getClient(config.database);
     if (client) {
       return client;
