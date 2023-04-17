@@ -1,5 +1,5 @@
 import { AUTH_COOKIE_NAME } from '$env/static/private';
-import { authJWT } from '$lib/auth';
+import { Auth } from '$lib/auth';
 import { isPublicPage } from '$lib/utils';
 import { sequence } from '@sveltejs/kit/hooks';
 import cookie from 'cookie';
@@ -14,9 +14,8 @@ const authHandler = async ({ event, resolve }) => {
 		const token = cookies[AUTH_COOKIE_NAME];
 		if (token) {
 			try {
-				const jwt = await authJWT.verify(token);
-
-				const user = /** @type {App.Locals['user']} */ (jwt.payload);
+				const user = await Auth.verify(token);
+				
 				event.locals.user = user?.id ? user : null;
 			} catch (error) {
 				event.locals.user = null;

@@ -24,19 +24,11 @@ export class Auth {
 
 	/**
 	 * @param {string} token
+	 * @returns {Promise<App.Locals['user']>}
 	 */
 	static async verify(token) {
 		const jwt = await authJWT.verify(token);
-		return jwt;
-	}
-
-	/**
-	 * @param {string} token
-	 * @returns {Promise<import('jose').JWTDecryptResult>}
-	 */
-	static async decode(token) {
-		const jwt = await authJWT.decode(token);
-		return jwt;
+		return /** @type {App.Locals['user']} */ (jwt.payload);
 	}
 
 	/**
