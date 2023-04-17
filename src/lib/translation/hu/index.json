@@ -1,0 +1,16 @@
+{
+	"LOGIN": "Bejelentkezés",
+	"EMAIL": "E-mail cím",
+	"PASSWORD": "Jelszó",
+	"REMEMBER_ME": "Emlékezz rám",
+	"FORGOT_PASSWORD": "Elfelejtetted a jelszavad?",
+	"DONT_HAVE_ACCOUNT": "Nincs még fiókod?",
+	"SIGN_UP": "Regisztráció",
+	"PASSWORD_AGAIN": "Jelszó újra",
+	"AGREE_TO_TERMS": "Elfogadom a feltételeket",
+	"REGISTER": "Regisztráció",
+	"ALREADY_HAVE_ACCOUNT": "Már van fiókod?",
+	"USERNAME": "Felhasználónév",
+	"HUNGARIAN": "Magyar",
+	"ENGLISH": "Angol"
+}

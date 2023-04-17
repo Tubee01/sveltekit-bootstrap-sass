@@ -1,0 +1,16 @@
+{
+	"LOGIN": "Login",
+	"EMAIL": "Email",
+	"PASSWORD": "Password",
+	"REMEMBER_ME": "Remember me",
+	"FORGOT_PASSWORD": "Forgot password?",
+	"DONT_HAVE_ACCOUNT": "Don't have an account?",
+	"SIGN_UP": "Sign up",
+	"PASSWORD_AGAIN": "Password again",
+	"AGREE_TO_TERMS": "I agree to the terms",
+	"REGISTER": "Register",
+	"ALREADY_HAVE_ACCOUNT": "Already have an account?",
+	"USERNAME": "Username",
+	"HUNGARIAN": "Hungarian",
+	"ENGLISH": "English"
+}

@@ -15,7 +15,7 @@ const authHandler = async ({ event, resolve }) => {
 		if (token) {
 			try {
 				const user = await Auth.verify(token);
-				
+
 				event.locals.user = user?.id ? user : null;
 			} catch (error) {
 				event.locals.user = null;
