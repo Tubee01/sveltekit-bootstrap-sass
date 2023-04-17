@@ -1,4 +1,6 @@
 <script>
+	import { Button, FormInput, FormCheckbox } from '$components';
+
 	/** @type {import('./$types').ActionData} */
 	export let form;
 </script>
@@ -8,24 +10,16 @@
 		<div class="row">
 			<div class="col-md-6 mx-auto">
 				<form method="post">
-					<div class="mb-3">
-						<label for="email" class="form-label">Email address</label>
-						<input type="email" class="form-control" name="email" value={form?.email ?? ''} />
-					</div>
-					<div class="mb-3">
-						<label for="password" class="form-label">Password</label>
-						<input
-							type="password"
-							class="form-control"
-							name="password"
-							value={form?.password ?? ''}
-						/>
-					</div>
-					<div class="mb-3 form-check">
-						<input type="checkbox" class="form-check-input" id="remember" />
-						<label class="form-check-label" for="remember">Remember me</label>
-					</div>
-					<button type="submit" class="btn btn-primary">Login</button>
+					<FormInput name="email" value={form?.email ?? ''} label="Email" error={form?.invalid} />
+					<FormInput
+						name="password"
+						value={form?.password ?? ''}
+						label="Password"
+						type="password"
+						error={form?.invalid}
+					/>
+					<FormCheckbox name="remember" label="Remember me" />
+					<Button type="submit" label="Login" />
 				</form>
 			</div>
 		</div>

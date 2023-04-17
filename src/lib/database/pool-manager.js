@@ -1,7 +1,6 @@
 import pg from 'pg';
 const { Pool } = pg;
 
-
 export class PoolManager {
 	constructor() {
 		/**

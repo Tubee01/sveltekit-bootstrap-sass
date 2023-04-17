@@ -1,25 +1,19 @@
+<script>
+	import { Button, FormInput } from '$components';
+	import FormCheckbox from '$components/form/FormCheckbox.svelte';
+</script>
+
 <section class="py-5">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-6 mx-auto">
 				<form method="post">
-					<div class="mb-3">
-						<label for="name" class="form-label">Full Name</label>
-						<input type="text" class="form-control" name="username" required />
-					</div>
-					<div class="mb-3">
-						<label for="email" class="form-label">Email address</label>
-						<input type="email" class="form-control" name="email" required />
-					</div>
-					<div class="mb-3">
-						<label for="password" class="form-label">Password</label>
-						<input type="password" class="form-control" name="password" required />
-					</div>
-					<div class="mb-3">
-						<label for="password1" class="form-label">Confirm Password</label>
-						<input type="password" class="form-control" name="password1" required />
-					</div>
-					<button type="submit" class="btn btn-primary">Register</button>
+					<FormInput name="username" label="Name" required />
+					<FormInput name="email" label="Email" required />
+					<FormInput name="password" label="Password" type="password" required />
+					<FormInput name="password1" label="Confirm Password" type="password" required />
+					<FormCheckbox name="agree" label="I agree to the terms and conditions" required />
+					<Button type="submit" label="Register" />
 				</form>
 			</div>
 		</div>

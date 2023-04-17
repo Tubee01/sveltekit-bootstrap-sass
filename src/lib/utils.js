@@ -14,5 +14,5 @@ export const arrayify = (value) => (Array.isArray(value) ? value : [value]);
  * @param {string} route
  */
 export const isPublicPage = (route) => {
-  return route?.includes('(public)');
-}
+	return route?.includes('(public)');
+};
