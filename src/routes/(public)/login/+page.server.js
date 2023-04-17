@@ -1,7 +1,8 @@
-import db from '$lib/database';
 import { formDataToJSON } from '$lib/utils';
-import bcrypt from 'bcrypt';
 import { fail } from '@sveltejs/kit';
+import { Auth, authJWT } from '$lib/auth';
+import { AUTH_COOKIE_NAME } from '$env/static/private';
+import { redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
@@ -9,23 +10,18 @@ export const actions = {
 		const formData = await request.formData();
 		const { email, password } = formDataToJSON(formData);
 
-		const user = await db.user.findByEmail(email);
+		const token = await Auth.login(email, password);
 
-		if (user) {
-			const passwordMatch = await bcrypt.compare(password, user.password);
+		if (token) {
+			cookies.set(AUTH_COOKIE_NAME, token, {
+				path: '/',
+				expires: authJWT.expiresDate,
+				sameSite: 'lax',
+				secure: true,
+				httpOnly: true
+			});
 
-			if (passwordMatch) {
-				cookies.set('user', user.id.toString(), {
-					path: '/',
-					maxAge: 60 * 60 * 24 * 7,
-					sameSite: 'lax',
-					httpOnly: true
-				});
-
-				return {
-					user: user
-				};
-			}
+			throw redirect(302, '/dashboard');
 		}
 
 		return fail(400, { email, password, invalid: true });
