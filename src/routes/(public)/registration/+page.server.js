@@ -1,39 +1,40 @@
 import db from '$lib/database';
-import { formDataToJSON } from '$lib/utils';
-import { fail } from '@sveltejs/kit';
+import { customFail, formDataToJSON } from '$lib/utils';
 import bcrypt from 'bcrypt';
 
 /** @type {import('./$types').Actions} */
 export const actions = {
 	default: async ({ request }) => {
 		const formData = await request.formData();
-		const { username, email, password, password1 } = formDataToJSON(formData);
+		const data = formDataToJSON(formData);
+
+		const { username, email, password, password1 } = data;
 
 		if (!email) {
-			return fail(400, { email, missing: true });
+			return customFail(data, { scope: 'email', message: 'Email is required' });
 		}
 
-		if (!password) {
-			return fail(400, { password, missing: true });
+		if (!password || password.trim().length === 0) {
+			return customFail(data, { scope: 'password', message: 'Password is required' });
 		}
 
 		if (!password1) {
-			return fail(400, { password1, missing: true });
+			return customFail(data, { scope: 'password1', message: 'Password is required' });
 		}
 
 		if (password !== password1) {
-			return fail(400, { password, password1, mismatch: true });
-		}
-
-		if (password.trim().length === 0) {
-			return fail(400, { password, password1, empty: true });
+			return customFail(data, [
+				{ scope: 'password', message: 'Passwords do not match' },
+				{ scope: 'password1', message: 'Passwords do not match' }
+			]);
 		}
 
 		const user = await db.user.findByEmail(email);
 
 		if (user) {
-			return fail(400, { email, exists: true });
+			return customFail(data, { scope: 'email', message: 'Email already exists' });
 		}
+
 		const hashedPassword = await bcrypt.hash(password, 10);
 
 		const newUser = await db.user.create(username, email, hashedPassword);
@@ -44,6 +45,6 @@ export const actions = {
 			};
 		}
 
-		return {};
+		return customFail(data, { scope: 'server', message: 'Something went wrong' });
 	}
 };

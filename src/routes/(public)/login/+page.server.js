@@ -1,5 +1,4 @@
-import { formDataToJSON } from '$lib/utils';
-import { fail } from '@sveltejs/kit';
+import { customFail, formDataToJSON } from '$lib/utils';
 import { Auth, authJWT } from '$lib/auth';
 import { AUTH_COOKIE_NAME } from '$env/static/private';
 import { redirect } from '@sveltejs/kit';
@@ -8,7 +7,8 @@ import { redirect } from '@sveltejs/kit';
 export const actions = {
 	default: async ({ request, cookies }) => {
 		const formData = await request.formData();
-		const { email, password } = formDataToJSON(formData);
+		const data = await formDataToJSON(formData);
+		const { email, password } = data;
 
 		const token = await Auth.login(email, password);
 
@@ -24,6 +24,9 @@ export const actions = {
 			throw redirect(302, '/dashboard');
 		}
 
-		return fail(400, { email, password, invalid: true });
+		return customFail(data, [
+			{ scope: 'email', message: 'Password or email is incorrect' },
+			{ scope: 'password', message: 'Password or email is incorrect' }
+		]);
 	}
 };
