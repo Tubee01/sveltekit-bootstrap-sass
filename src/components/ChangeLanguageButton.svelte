@@ -11,15 +11,9 @@
 	}
 </script>
 
-<section class="py-5">
-	<div class="container">
-		<div class="row">
-			<div class="col-md-6 mx-auto">
-				<Button
-					on:click={changeLanguage}
-					label={language === 'en' ? $t('HUNGARIAN') : $t('ENGLISH')}
-				/>
-			</div>
-		</div>
-	</div>
-</section>
+<Button
+	on:click={changeLanguage}
+	label={language === 'en' ? $t('HUNGARIAN') : $t('ENGLISH')}
+	class="position-absolute top-0 end-0"
+	size="sm"
+/>
