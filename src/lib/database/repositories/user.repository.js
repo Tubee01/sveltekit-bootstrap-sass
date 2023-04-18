@@ -1,8 +1,11 @@
 import { Repository } from './repository';
 
 export class UserRepository extends Repository {
-	constructor() {
-		super('user');
+	/**
+	 * @param {import('../pool-manager').PoolManager} poolManager
+	 */
+	constructor(poolManager) {
+		super(poolManager, 'user');
 	}
 
 	async findAll() {
